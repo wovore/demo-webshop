@@ -26,6 +26,35 @@ function clearBasket() {
   localStorage.removeItem("basket");
 }
 
+function getGroupedBasket() {
+  const basket = getBasket();
+  const grouped = {};
+  
+  // Count items by product type
+  basket.forEach((product) => {
+    grouped[product] = (grouped[product] || 0) + 1;
+  });
+  
+  // Process bananas into bundles
+  if (grouped.banana) {
+    const bananaCount = grouped.banana;
+    const bundles = Math.floor(bananaCount / 6);
+    const remainder = bananaCount % 6;
+    
+    // Replace banana count with bundles and remainder
+    if (bundles > 0) {
+      grouped["banana-bundle"] = bundles;
+    }
+    if (remainder > 0) {
+      grouped.banana = remainder;
+    } else {
+      delete grouped.banana;
+    }
+  }
+  
+  return grouped;
+}
+
 function renderBasket() {
   const basket = getBasket();
   const basketList = document.getElementById("basketList");
@@ -37,14 +66,28 @@ function renderBasket() {
     if (cartButtonsRow) cartButtonsRow.style.display = "none";
     return;
   }
-  basket.forEach((product) => {
-    const item = PRODUCTS[product];
-    if (item) {
-      const li = document.createElement("li");
-      li.innerHTML = `<span class='basket-emoji'>${item.emoji}</span> <span>${item.name}</span>`;
-      basketList.appendChild(li);
+  
+  const grouped = getGroupedBasket();
+  
+  // Display grouped items
+  Object.entries(grouped).forEach(([productKey, quantity]) => {
+    const li = document.createElement("li");
+    let displayName, emoji;
+    
+    if (productKey === "banana-bundle") {
+      displayName = "Bundle of Bananas";
+      emoji = "🍌";
+    } else {
+      const item = PRODUCTS[productKey];
+      if (!item) return;
+      displayName = item.name;
+      emoji = item.emoji;
     }
+    
+    li.innerHTML = `<span class='basket-emoji'>${emoji}</span> <span>${quantity}x ${displayName}</span>`;
+    basketList.appendChild(li);
   });
+  
   if (cartButtonsRow) cartButtonsRow.style.display = "flex";
 }
 
