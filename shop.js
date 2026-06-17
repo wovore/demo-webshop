@@ -38,8 +38,8 @@ function getGroupedBasket() {
   // Process bananas into bundles
   if (grouped.banana) {
     const bananaCount = grouped.banana;
-    const bundles = Math.floor(bananaCount / 6);
-    const remainder = bananaCount % 6;
+    const bundles = Math.floor(bananaCount / 5);
+    const remainder = bananaCount % 5;
     
     // Replace banana count with bundles and remainder
     if (bundles > 0) {
