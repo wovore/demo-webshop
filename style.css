@@ -258,6 +258,62 @@ input[type="text"]:focus {
 #basketList li {
   background: none !important;
 }
+
+.basket-item {
+  list-style: none;
+  width: 100%;
+}
+
+.basket-item-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  padding: 0.5rem 0;
+}
+
+.basket-item-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.basket-quantity-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: auto;
+}
+
+.basket-quantity-btn {
+  width: 2rem;
+  height: 2rem;
+  border: 2px solid #111;
+  border-radius: 50%;
+  background: #e53935;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(229, 57, 53, 0.18);
+}
+
+.basket-quantity-btn:hover {
+  background: #b71c1c;
+}
+
+.basket-quantity {
+  min-width: 1.5rem;
+  text-align: center;
+  font-weight: 700;
+}
+
 .cart-buttons-row {
   display: flex;
   flex-direction: row;
